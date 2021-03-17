@@ -378,7 +378,7 @@ class S3DIS(BaseDataset):
                             ['x', 'y', 'z', 'red', 'green', 'blue', 'class'])
 
 
-class S3DISSplit():
+class S3DISSplit(BaseDatasetSplit):
     """
     This class is used to create a split for S3DIS dataset.
     
@@ -393,6 +393,8 @@ class S3DISSplit():
     """
 
     def __init__(self, dataset, split='training'):
+
+        super().__init__(dataset, split=split) # sampler fix
 
         self.cfg = dataset.cfg
         path_list = dataset.get_split_list(split)
