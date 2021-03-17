@@ -1,15 +1,15 @@
 #!/bin/bash
   
-if [ "$#" -ne 1 ]; then
-    echo "Please, provide the base directory to store the dataset."
-    exit 1
-fi
+# if [ "$#" -ne 1 ]; then
+#     echo "Please, provide the base directory to store the dataset."
+#     exit 1
+# fi
 
-if ! command -v unzip &> /dev/null
-then
-    echo "Error: unzip could not be found. Please, install it to continue"
-    exit
-fi
+# if ! command -v unzip &> /dev/null
+# then
+#     echo "Error: unzip could not be found. Please, install it to continue"
+#     exit
+# fi
 
 BASE_DIR="$1"/SemanticKitti
 

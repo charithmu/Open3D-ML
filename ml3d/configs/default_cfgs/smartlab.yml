@@ -1,0 +1,10 @@
+name: SmartLab
+dataset_path: ../dataset/SmartLab/
+train_dir: train
+val_dir: val
+test_dir: test
+use_cache: False
+class_weights: [1, 1, 1, 1, 1]
+ignored_label_inds: [0]
+num_points: 40960
+test_result_folder: ./test
