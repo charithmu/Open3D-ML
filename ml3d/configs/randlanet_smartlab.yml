@@ -4,9 +4,10 @@ dataset:
   train_dir: train
   val_dir: val
   test_dir: test
-  use_cache: False
-  class_weights: [1, 1, 1, 1, 1]
-  ignored_label_inds: [0]
+  use_cache: True
+  class_weights: [1, 1, 1, 1, 1, 1]
+  ignored_label_inds:
+    - 0
   num_points: 40960
   test_result_folder: ./test
 model:
@@ -14,25 +15,26 @@ model:
   batcher: DefaultBatcher
   ckpt_path: # path/to/your/checkpoint
   dim_feature: 8
-  dim_input: 6
+  dim_input: 3
   dim_output:
-  - 16
-  - 64
-  - 128
-  - 256
-  - 512
+    - 16
+    - 64
+    - 128
+    - 256
+    - 512
   grid_size: 0.04
-  ignored_label_inds: []
+  ignored_label_inds:
+    - 0
   k_n: 16
-  num_classes: 13
+  num_classes: 6
   num_layers: 5
   num_points: 40960
   sub_sampling_ratio:
-  - 4
-  - 4
-  - 4
-  - 4
-  - 2
+    - 4
+    - 4
+    - 4
+    - 4
+    - 2
   t_normalize:
     method: linear
     normalize_points: False
@@ -44,8 +46,8 @@ pipeline:
   batch_size: 2
   learning_rate: 0.01
   main_log_dir: ./logs
-  max_epoch: 100
-  save_ckpt_freq: 20
+  max_epoch: 20
+  save_ckpt_freq: 5
   scheduler_gamma: 0.95
   test_batch_size: 3
   train_sum_dir: train_log

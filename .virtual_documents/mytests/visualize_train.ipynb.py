@@ -24,16 +24,20 @@ randlanet_s3dis_cfg = "/home/charith/repos/Open3D-ML/ml3d/configs/randlanet_s3di
 cfg = _ml3d.utils.Config.load_from_file(randlanet_s3dis_cfg)
 
 # construct a dataset by specifying dataset_path
-dataset = ml3d.datasets.SmartLab(**cfg.dataset)
+dataset = ml3d.datasets.S3DIS(**cfg.dataset)
 
 # get the 'all' split that combines training, validation and test set
-all_split = dataset.get_split("training")
+split = dataset.get_split("training")
 
 # print the attributes of the first datum
-print(all_split.get_attr(0))
+# print(split.get_attr(0))
 
 # print the shape of the first point cloud
-print(all_split.get_data(0)["point"].shape)
+print(split.get_data(0)["point"].shape)
+
+for idx in range(split.__len__()):
+    print(split.get_data(idx)["point"].shape[0])
+
 
 # show the first 100 frames using the visualizer
 vis = ml3d.vis.Visualizer()
@@ -49,22 +53,16 @@ model = RandLANet(**cfg.model)
 
 pipeline = SemanticSegmentation(model=model, dataset=dataset, max_epoch=100)
 
-
-with open("../scripts/README.md", "r") as f:
-    readme = f.read()
-
 pipeline.cfg_tb = {
-    "readme": readme,
-    "cmd_line": " ".join(sys.argv[:]),
+    "readme": "readme",
+    "cmd_line": "cmd_line",
     "dataset": pprint.pformat("S3DIS", indent=2),
     "model": pprint.pformat("RandLANet", indent=2),
     "pipeline": pprint.pformat("SemanticSegmentation", indent=2),
 }
 
+
 pipeline.run_train()
-
-
-
 
 
 # Inference and test example
