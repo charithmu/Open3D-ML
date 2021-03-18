@@ -213,7 +213,7 @@ class DataModel(Model):
     """The class for data i/o and storage of visualization.
     **Args:**
         userdata: The dataset to be used in the visualization.
-"""
+    """
 
     def __init__(self, userdata):
         super().__init__()
@@ -247,7 +247,7 @@ class DatasetModel(Model):
         dataset:  The 3D ML dataset to use. You can use the base dataset, sample datasets , or a custom dataset.
         split: A string identifying the dataset split that is usually one of 'training', 'test', 'validation', or 'all'.
         indices: The indices to be used for the datamodel. This may vary based on the split used.
-"""
+    """
 
     def __init__(self, dataset, split, indices):
         super().__init__()
@@ -579,7 +579,7 @@ class Visualizer:
                 value = value + 0.5 * (upper - value)
                 needs_update = True
             if idx < len(self.colormap.points
-                        ) - 1 and value == self.colormap.points[idx + 1].value:
+                         ) - 1 and value == self.colormap.points[idx + 1].value:
                 if idx > 0:
                     lower = self.colormap.points[idx - 1].value
                 else:
@@ -1278,7 +1278,8 @@ class Visualizer:
 
         if self._shader.selected_text in self._colormaps:
             cmap = self._colormaps[self._shader.selected_text]
-            self._colormap_edit.update(cmap, self._scalar_min, self._scalar_max)
+            self._colormap_edit.update(
+                cmap, self._scalar_min, self._scalar_max)
 
     def _set_shader(self, shader_name, force_update=False):
         # Disable channel if we are using a vector shader. Always do this to
@@ -1297,7 +1298,8 @@ class Visualizer:
 
         if shader_name in self._colormaps:
             cmap = self._colormaps[shader_name]
-            self._colormap_edit.update(cmap, self._scalar_min, self._scalar_max)
+            self._colormap_edit.update(
+                cmap, self._scalar_min, self._scalar_max)
 
         self._update_geometry_colors()
 
@@ -1495,8 +1497,8 @@ class Visualizer:
         """
         # Setup the labels
         lut = LabelLUT()
-        for val in sorted(dataset.label_to_names.values()):
-            lut.add_label(val, val)
+        for key, val in (dataset.label_to_names.items()):
+            lut.add_label(val, key)
         self.set_lut("labels", lut)
 
         self._consolidate_bounding_boxes = True

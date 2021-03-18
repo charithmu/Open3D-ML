@@ -89,11 +89,12 @@ class SmartLab(BaseDataset):
         """
 
         label_to_names = {
-            0: 'Unclassified',
+            0: 'Unlabeled',
             1: 'Floor',
-            2: 'Robot',
-            3: 'Human',
-            4: 'AGV'
+            2: 'Wall',
+            3: 'Robot',
+            4: 'Human',
+            5: 'AGV'
         }
         return label_to_names
 
@@ -107,7 +108,7 @@ class SmartLab(BaseDataset):
             A dataset split object providing the requested subset of the data.
         """
 
-        return Custom3DSplit(self, split=split)
+        return SmartLabSplit(self, split=split)
 
     def get_split_list(self, split):
         """Returns a dataset split.
@@ -216,14 +217,15 @@ class SmartLabSplit():
     def get_data(self, idx):
         pc_path = self.path_list[idx]
         data = np.load(pc_path)
+
         points = np.array(data[:, :3], dtype=np.float32)
 
+        feat = np.array(data[:, 3:], dtype=np.float32) if data.shape[1] > 4 else None
+        
         if (self.split != 'test'):
             labels = np.array(data[:, 3], dtype=np.int32)
-            feat = data[:, 4:] if data.shape[1] > 4 else None
         else:
-            feat = np.array(data[:, 3:], dtype=np.float32) if data.shape[1] > 3 else None
-            labels = np.zeros((points.shape[0],), dtype=np.int32)
+            labels = np.zeros((points.shape[0],), dtype=np.int16)
 
         data = {'point': points, 'feat': feat, 'label': labels}
 
