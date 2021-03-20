@@ -168,12 +168,18 @@ class SemanticSegmentation(BasePipeline):
         for idx in tqdm(range(len(test_split)), desc='test'):
             attr = test_split.get_attr(idx)
             data = test_split.get_data(idx)
+            print(attr)
             results = self.run_inference(data)
-            scores, labels = Loss.filter_valid_label(results['predict_scores'],
-                                                     data['label'])
+            # print(results)
+            scores, labels = Loss.filter_valid_label(results['predict_scores'], data['label'])
 
+            print(scores)
+            print(labels)    
             acc = Metric.acc(scores.numpy(), labels.numpy())
             iou = Metric.iou(scores.numpy(), labels.numpy())
+            print(acc)
+            print(iou)    
+
             accs.append(acc)
             ious.append(iou)
 

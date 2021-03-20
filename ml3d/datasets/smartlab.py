@@ -27,7 +27,7 @@ log = logging.getLogger(__name__)
 
 class SmartLab(BaseDataset):
     """
-    A template for customized datasetthat you can use with a dataloader to feed data when training a model. 
+    A template for customized datasetthat you can use with a dataloader to feed data when training a model.
     This inherits all functions from the base dataset and can be modified by users.
     Initialize the function by passing the dataset and other details.
 
@@ -66,7 +66,8 @@ class SmartLab(BaseDataset):
         self.label_to_names = self.get_label_to_names()
 
         self.num_classes = len(self.label_to_names)
-        self.label_values = np.sort([k for k, v in self.label_to_names.items()])
+        self.label_values = np.sort(
+            [k for k, v in self.label_to_names.items()])
 
         self.label_to_idx = {l: i for i, l in enumerate(self.label_values)}
 
@@ -142,7 +143,7 @@ class SmartLab(BaseDataset):
             raise ValueError("Invalid split {}".format(split))
 
         """Checks if a datum in the dataset has been tested.
-        
+
         Args:
             dataset: The current dataset to which the datum belongs to.
                                                 attr: The attribute that needs to be checked.
@@ -179,7 +180,12 @@ class SmartLab(BaseDataset):
         make_dir(path)
 
         pred = results['predict_labels']
-        pred = np.array(self.label_to_names[pred])
+        # pred = np.array(self.label_to_names[pred])
+        pred = np.array([pred])
+
+
+        for ign in cfg.ignored_label_inds:
+            pred[pred >= ign] += 1
 
         store_path = join(path, name + '.npy')
         np.save(store_path, pred)
@@ -225,7 +231,7 @@ class SmartLabSplit():
         if (self.split != 'test'):
             labels = np.array(data[:, 3], dtype=np.int32)
         else:
-            labels = np.zeros((points.shape[0],), dtype=np.int16)
+            labels = np.zeros((points.shape[0],), dtype=np.int32)
 
         data = {'point': points, 'feat': feat, 'label': labels}
 
