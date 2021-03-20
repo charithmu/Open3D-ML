@@ -1,14 +1,13 @@
 dataset:
   name: SmartLab
-  dataset_path: /home/charith/datasets/SmartLab/
+  dataset_path: /home/threedee/datasets/SmartLab/
   train_dir: train
   val_dir: val
   test_dir: test
-  use_cache: True
+  use_cache: False
   class_weights: [1, 1, 1, 1, 1, 1]
-  ignored_label_inds:
-    - 0
-  num_points: 40960
+  ignored_label_inds: []
+  num_points: 10240
   test_result_folder: ./test
 model:
   name: RandLANet
@@ -23,12 +22,11 @@ model:
     - 256
     - 512
   grid_size: 0.04
-  ignored_label_inds:
-    - 0
+  ignored_label_inds: []
   k_n: 16
   num_classes: 6
   num_layers: 5
-  num_points: 40960
+  num_points: 10240
   sub_sampling_ratio:
     - 4
     - 4
@@ -46,8 +44,8 @@ pipeline:
   batch_size: 2
   learning_rate: 0.01
   main_log_dir: ./logs
-  max_epoch: 20
-  save_ckpt_freq: 5
+  max_epoch: 50
+  save_ckpt_freq: 10
   scheduler_gamma: 0.95
   test_batch_size: 3
   train_sum_dir: train_log

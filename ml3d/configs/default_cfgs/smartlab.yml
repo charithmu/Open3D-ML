@@ -1,5 +1,5 @@
 name: SmartLab
-dataset_path: /home/charith/datasets/SmartLab/
+dataset_path: /home/threedee/datasets/SmartLab/
 train_dir: train
 val_dir: val
 test_dir: test

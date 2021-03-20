@@ -180,12 +180,11 @@ class SmartLab(BaseDataset):
         make_dir(path)
 
         pred = results['predict_labels']
+        pred = np.array(pred)
+
         # pred = np.array(self.label_to_names[pred])
-        pred = np.array([pred])
-
-
-        for ign in cfg.ignored_label_inds:
-            pred[pred >= ign] += 1
+        # for ign in cfg.ignored_label_inds:
+        #     pred[pred >= ign] += 1
 
         store_path = join(path, name + '.npy')
         np.save(store_path, pred)
