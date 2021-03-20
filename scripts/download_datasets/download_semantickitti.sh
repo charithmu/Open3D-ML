@@ -11,7 +11,7 @@
 #     exit
 # fi
 
-BASE_DIR="$1"/SemanticKitti
+BASE_DIR="$1"/SemanticKITTI
 
 mkdir -p $BASE_DIR
 
