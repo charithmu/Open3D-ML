@@ -27,5 +27,8 @@ kernels/
 **/.fuse*
 train_log/
 
-**/.ipynb_checkpoints
-**/.virtual_documents
+.ipynb_checkpoints/
+.virtual_documents/
+
+mytests/.ipynb_checkpoints/
+mytests/.virtual_documents/
