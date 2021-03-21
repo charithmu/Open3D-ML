@@ -16,7 +16,7 @@ from ..utils import make_dir, DATASET
 
 logging.basicConfig(
     level=logging.INFO,
-    format='%(levelname)s - %(asctime)s - %(module)s - %(message)s',
+    format="%(levelname)s - %(asctime)s - %(module)s - %(message)s",
 )
 log = logging.getLogger(__name__)
 
@@ -41,24 +41,28 @@ class SmartLab(BaseDataset):
         test_result_folder: The folder where the test results should be stored.
     """
 
-    def __init__(self,
-                 dataset_path,
-                 name='SmartLab',
-                 cache_dir='./logs/cache',
-                 use_cache=False,
-                 num_points=65536,
-                 ignored_label_inds=[],
-                 test_result_folder='./test',
-                 **kwargs):
+    def __init__(
+        self,
+        dataset_path,
+        name="SmartLab",
+        cache_dir="./logs/cache",
+        use_cache=False,
+        num_points=65536,
+        ignored_label_inds=[],
+        test_result_folder="./test",
+        **kwargs
+    ):
 
-        super().__init__(dataset_path=dataset_path,
-                         name=name,
-                         cache_dir=cache_dir,
-                         use_cache=use_cache,
-                         num_points=num_points,
-                         ignored_label_inds=ignored_label_inds,
-                         test_result_folder=test_result_folder,
-                         **kwargs)
+        super().__init__(
+            dataset_path=dataset_path,
+            name=name,
+            cache_dir=cache_dir,
+            use_cache=use_cache,
+            num_points=num_points,
+            ignored_label_inds=ignored_label_inds,
+            test_result_folder=test_result_folder,
+            **kwargs
+        )
 
         cfg = self.cfg
 
@@ -66,8 +70,7 @@ class SmartLab(BaseDataset):
         self.label_to_names = self.get_label_to_names()
 
         self.num_classes = len(self.label_to_names)
-        self.label_values = np.sort(
-            [k for k, v in self.label_to_names.items()])
+        self.label_values = np.sort([k for k, v in self.label_to_names.items()])
 
         self.label_to_idx = {l: i for i, l in enumerate(self.label_values)}
 
@@ -89,14 +92,7 @@ class SmartLab(BaseDataset):
             A dict where keys are label numbers and values are the corresponding names.
         """
 
-        label_to_names = {
-            0: 'Unlabeled',
-            1: 'Floor',
-            2: 'Wall',
-            3: 'Robot',
-            4: 'Human',
-            5: 'AGV'
-        }
+        label_to_names = {0: "Unlabeled", 1: "Floor", 2: "Wall", 3: "Robot", 4: "Human", 5: "AGV"}
         return label_to_names
 
     def get_split(self, split):
@@ -124,19 +120,19 @@ class SmartLab(BaseDataset):
                 ValueError: Indicates that the split name passed is incorrect. The split name should be one of 'training', 'test', 'validation', or 'all'.
         """
 
-        if split in ['test', 'testing']:
+        if split in ["test", "testing"]:
             random.shuffle(self.test_files)
             return self.test_files
 
-        elif split in ['val', 'validation']:
+        elif split in ["val", "validation"]:
             random.shuffle(self.val_files)
             return self.val_files
 
-        elif split in ['train', 'training']:
+        elif split in ["train", "training"]:
             random.shuffle(self.train_files)
             return self.train_files
 
-        elif split in ['all']:
+        elif split in ["all"]:
             files = self.val_files + self.train_files + self.test_files
             return files
         else:
@@ -155,9 +151,9 @@ class SmartLab(BaseDataset):
     def is_tested(self, attr):
 
         cfg = self.cfg
-        name = attr['name']
+        name = attr["name"]
         path = cfg.test_result_folder
-        store_path = join(path, self.name, name + '.npy')
+        store_path = join(path, self.name, name + ".npy")
 
         if exists(store_path):
             print("{} already exists.".format(store_path))
@@ -175,22 +171,22 @@ class SmartLab(BaseDataset):
         """
 
         cfg = self.cfg
-        name = attr['name']
+        name = attr["name"]
         path = cfg.test_result_folder
         make_dir(path)
 
-        pred = results['predict_labels']
+        pred = results["predict_labels"]
         pred = np.array(pred)
 
         # pred = np.array(self.label_to_names[pred])
         # for ign in cfg.ignored_label_inds:
         #     pred[pred >= ign] += 1
 
-        store_path = join(path, name + '.npy')
+        store_path = join(path, name + ".npy")
         np.save(store_path, pred)
 
 
-class SmartLabSplit():
+class SmartLabSplit:
     """This class is used to create a custom dataset split.
     Initialize the class.
 
@@ -198,14 +194,14 @@ class SmartLabSplit():
         dataset: The dataset to split.
 
         split: A string identifying the dataset split that is usually one of 'training', 'test', 'validation', or 'all'.
-        
+
         **kwargs: The configuration of the model as keyword arguments.
 
     Returns:
         A dataset split object providing the requested subset of the data.
     """
 
-    def __init__(self, dataset, split='training'):
+    def __init__(self, dataset, split="training"):
         self.cfg = dataset.cfg
         path_list = dataset.get_split_list(split)
         log.info("Found {} pointclouds for {}".format(len(path_list), split))
@@ -214,10 +210,8 @@ class SmartLabSplit():
         self.split = split
         self.dataset = dataset
 
-
     def __len__(self):
         return len(self.path_list)
-
 
     def get_data(self, idx):
         pc_path = self.path_list[idx]
@@ -226,21 +220,35 @@ class SmartLabSplit():
         points = np.array(data[:, :3], dtype=np.float32)
 
         feat = np.array(data[:, 3:], dtype=np.float32) if data.shape[1] > 4 else None
-        
-        if (self.split != 'test'):
+
+        if self.split != "test":
             labels = np.array(data[:, 3], dtype=np.int32)
         else:
             labels = np.zeros((points.shape[0],), dtype=np.int32)
 
-        data = {'point': points, 'feat': feat, 'label': labels}
+        data = {"point": points, "feat": feat, "label": labels}
+
+        return data
+
+    def get_data_viz(self, idx):
+        pc_path = self.path_list[idx]
+        data = np.load(pc_path)
+
+        points = np.array(data[:, :3], dtype=np.float32)
+
+        feat = np.array(data[:, 3:], dtype=np.float32) if data.shape[1] > 4 else None
+
+        labels = np.array(data[:, 3], dtype=np.int32)
+
+        data = {"point": points, "feat": feat, "label": labels}
 
         return data
 
     def get_attr(self, idx):
         pc_path = Path(self.path_list[idx])
-        name = pc_path.name.replace('.npy', '')
+        name = pc_path.name.replace(".npy", "")
 
-        attr = {'name': name, 'path': str(pc_path), 'split': self.split}
+        attr = {"name": name, "path": str(pc_path), "split": self.split}
 
         return attr
 
