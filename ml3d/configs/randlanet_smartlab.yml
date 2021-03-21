@@ -7,8 +7,8 @@ dataset:
   use_cache: False
   class_weights: [1, 1, 1, 1, 1, 1]
   ignored_label_inds: [0]
-  num_points: 57000
-  test_result_folder: ./test
+  num_points: 55000
+  test_result_folder: test
 model:
   name: RandLANet
   batcher: DefaultBatcher
@@ -41,12 +41,12 @@ model:
 pipeline:
   name: SemanticSegmentation
   adam_lr: 0.01
-  batch_size: 4
+  batch_size: 3
   learning_rate: 0.01
-  main_log_dir: ./logs
+  main_log_dir: logs
   max_epoch: 100
   save_ckpt_freq: 10
   scheduler_gamma: 0.95
   test_batch_size: 3
   train_sum_dir: train_log
-  val_batch_size: 3
+  val_batch_size: 2
