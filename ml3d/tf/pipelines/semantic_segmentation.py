@@ -177,7 +177,7 @@ class SemanticSegmentation(BasePipeline):
             results = self.run_inference(data)
 
             # print(results)
-            scores, labels = Loss.filter_valid_label(results["predict_scores"], data["label"])
+            scores, labels = Loss.filter_valid_label(results["predict_scores"], results["predict_label"])
             # print(scores)
             # print(labels)
 
