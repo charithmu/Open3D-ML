@@ -15,7 +15,7 @@ from .base_dataset import BaseDataset, BaseDatasetSplit
 from ..utils import make_dir, DATASET
 
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.ERROR,
     format="%(levelname)s - %(asctime)s - %(module)s - %(message)s",
 )
 log = logging.getLogger(__name__)
@@ -48,7 +48,7 @@ class SmartLab(BaseDataset):
         cache_dir="./logs/cache",
         use_cache=False,
         num_points=65536,
-        ignored_label_inds=[],
+        ignored_label_inds=[0],
         test_result_folder="./test",
         **kwargs
     ):
@@ -213,24 +213,24 @@ class SmartLabSplit:
     def __len__(self):
         return len(self.path_list)
 
+    # def get_data(self, idx):
+    #     pc_path = self.path_list[idx]
+    #     data = np.load(pc_path)
+
+    #     points = np.array(data[:, :3], dtype=np.float32)
+
+    #     feat = np.array(data[:, 3:], dtype=np.float32) if data.shape[1] > 4 else None
+
+    #     if self.split != "test":
+    #         labels = np.array(data[:, 3], dtype=np.int32)
+    #     else:
+    #         labels = np.zeros((points.shape[0],), dtype=np.int32)
+
+    #     data = {"point": points, "feat": feat, "label": labels}
+
+    #     return data
+
     def get_data(self, idx):
-        pc_path = self.path_list[idx]
-        data = np.load(pc_path)
-
-        points = np.array(data[:, :3], dtype=np.float32)
-
-        feat = np.array(data[:, 3:], dtype=np.float32) if data.shape[1] > 4 else None
-
-        if self.split != "test":
-            labels = np.array(data[:, 3], dtype=np.int32)
-        else:
-            labels = np.zeros((points.shape[0],), dtype=np.int32)
-
-        data = {"point": points, "feat": feat, "label": labels}
-
-        return data
-
-    def get_data_viz(self, idx):
         pc_path = self.path_list[idx]
         data = np.load(pc_path)
 
