@@ -1475,6 +1475,7 @@ class Visualizer:
     def visualize_dataset(self,
                           dataset,
                           split,
+                          label_lut,
                           indices=None,
                           width=1024,
                           height=768):
@@ -1496,10 +1497,13 @@ class Visualizer:
             height: The height of the visualization window.
         """
         # Setup the labels
-        lut = LabelLUT()
-        for key, val in (dataset.label_to_names.items()):
-            lut.add_label(val, key)
-        self.set_lut("labels", lut)
+        if label_lut is None:
+            lut = LabelLUT()
+            for key, val in (dataset.label_to_names.items()):
+                lut.add_label(val, key)
+            self.set_lut("labels", lut)
+        else:
+            self.set_lut("labels", label_lut)
 
         self._consolidate_bounding_boxes = True
         self._init_dataset(dataset, split, indices)

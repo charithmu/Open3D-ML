@@ -1,0 +1,93 @@
+dataset:
+  name: SmartLab
+  dataset_path: /home/threedee/datasets/SmartLab/
+  train_dir: train
+  val_dir: val
+  test_dir: test
+  use_cache: False
+  class_weights: [26636,11195,12833,3635,2720,1034]
+  ignored_label_inds: [0]
+  num_points: 56000
+  test_result_folder: test
+model:
+  name: KPFCNN
+  ckpt_path: # path/to/your/checkpoint
+  KP_extent: 1.2
+  KP_influence: linear
+  aggregation_mode: sum
+  architecture:
+  - simple
+  - resnetb
+  - resnetb_strided
+  - resnetb
+  - resnetb
+  - resnetb_strided
+  - resnetb
+  - resnetb
+  - resnetb_strided
+  - resnetb
+  - resnetb
+  - resnetb_strided
+  - resnetb
+  - nearest_upsample
+  - unary
+  - nearest_upsample
+  - unary
+  - nearest_upsample
+  - unary
+  - nearest_upsample
+  - unary
+  augment_color: 1.0
+  augment_noise: 0.001
+  augment_rotation: vertical
+  augment_scale_anisotropic: true
+  augment_scale_max: 1.1
+  augment_scale_min: 0.9
+  augment_symmetries:
+  - true
+  - false
+  - false
+  batch_limit: 20000
+  batch_norm_momentum: 0.98
+  batcher: ConcatBatcher
+  conv_radius: 2.5
+  deform_fitting_mode: point2point
+  deform_fitting_power: 1.0
+  deform_radius: 6.0
+  density_parameter: 5.0
+  first_features_dim: 128
+  first_subsampling_dl: 0.04
+  fixed_kernel_points: center
+  ignored_label_inds: [0]
+  in_features_dim: 2
+  in_points_dim: 3
+  in_radius: 1.5
+  lbl_values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+  max_in_points: 20000
+  modulated: false
+  num_classes: 6
+  num_kernel_points: 15
+  num_layers: 5
+  repulse_extent: 1.2
+  use_batch_norm: true
+  t_normalize:
+    method: linear
+    normalize_points: False
+    feat_bias: 0
+    feat_scale: 255
+pipeline:
+  name: SemanticSegmentation
+  adam_lr: 0.01
+  batch_size: 4
+  learning_rate: 0.01
+  lr_decays: 0.98477
+  deform_lr_factor: 0.1
+  main_log_dir: ./logs
+  max_epoch: 20
+  momentum: 0.98
+  save_ckpt_freq: 10
+  scheduler_gamma: 0.98477
+  test_batch_size: 4
+  train_sum_dir: train_log
+  val_batch_size: 4
+  weight_decay: 0.001

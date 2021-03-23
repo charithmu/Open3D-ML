@@ -18,7 +18,7 @@ from ...utils import make_dir, LogRecord, PIPELINE, get_runid, code2md
 
 logging.setLogRecordFactory(LogRecord)
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.ERROR,
     format="%(levelname)s - %(asctime)s - %(module)s - %(message)s",
 )
 log = logging.getLogger(__name__)
@@ -173,11 +173,14 @@ class SemanticSegmentation(BasePipeline):
             attr = test_split.get_attr(idx)
             data = test_split.get_data(idx)
 
-            print(attr)
+            # print(attr)
             results = self.run_inference(data)
 
-            # print(results)
-            scores, labels = Loss.filter_valid_label(results["predict_scores"], results["predict_label"])
+            # print("pred lable summary:")
+            # unique, counts = np.unique(results["predict_labels"], return_counts=True)
+            # print(np.asarray((unique, counts)).T)
+
+            scores, labels = Loss.filter_valid_label(results["predict_scores"], data['label'])
             # print(scores)
             # print(labels)
 
@@ -193,6 +196,9 @@ class SemanticSegmentation(BasePipeline):
 
         accs = np.nanmean(np.array(accs), axis=0)
         ious = np.nanmean(np.array(ious), axis=0)
+
+        print(accs)
+        print(ious)
 
         log.info("Per class Accuracy : {}".format(accs[:-1]))
         log.info("Per class IOUs : {}".format(ious[:-1]))
