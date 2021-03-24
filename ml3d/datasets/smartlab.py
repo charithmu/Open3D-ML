@@ -15,14 +15,13 @@ from .base_dataset import BaseDataset, BaseDatasetSplit
 from ..utils import make_dir, DATASET
 
 logging.basicConfig(
-    level=logging.ERROR,
+    level=logging.INFO,
     format="%(levelname)s - %(asctime)s - %(module)s - %(message)s",
 )
 log = logging.getLogger(__name__)
 
 # Expect point clouds to be in npy format with train, val and test files in separate folders.
 # Expected format of npy files : ['x', 'y', 'z', 'class', 'feat_1', 'feat_2', ........,'feat_n'].
-# For test files, format should be : ['x', 'y', 'z', 'feat_1', 'feat_2', ........,'feat_n'].
 
 
 class SmartLab(BaseDataset):
@@ -70,7 +69,8 @@ class SmartLab(BaseDataset):
         self.label_to_names = self.get_label_to_names()
 
         self.num_classes = len(self.label_to_names)
-        self.label_values = np.sort([k for k, v in self.label_to_names.items()])
+        self.label_values = np.sort(
+            [k for k, v in self.label_to_names.items()])
 
         self.label_to_idx = {l: i for i, l in enumerate(self.label_values)}
 
@@ -92,7 +92,8 @@ class SmartLab(BaseDataset):
             A dict where keys are label numbers and values are the corresponding names.
         """
 
-        label_to_names = {0: "Unlabeled", 1: "Floor", 2: "Wall", 3: "Robot", 4: "Human", 5: "AGV"}
+        label_to_names = {0: "Unlabeled", 1: "Floor",
+                          2: "Wall", 3: "Robot", 4: "Human", 5: "AGV"}
         return label_to_names
 
     def get_split(self, split):
@@ -138,17 +139,16 @@ class SmartLab(BaseDataset):
         else:
             raise ValueError("Invalid split {}".format(split))
 
+    def is_tested(self, attr):
         """Checks if a datum in the dataset has been tested.
 
         Args:
             dataset: The current dataset to which the datum belongs to.
-                                                attr: The attribute that needs to be checked.
+            attr: The attribute that needs to be checked.
 
         Returns:
             If the dataum attribute is tested, then resturn the path where the attribute is stored; else, returns false.
-    """
-
-    def is_tested(self, attr):
+        """
 
         cfg = self.cfg
         name = attr["name"]
@@ -192,9 +192,7 @@ class SmartLabSplit:
 
     Args:
         dataset: The dataset to split.
-
         split: A string identifying the dataset split that is usually one of 'training', 'test', 'validation', or 'all'.
-
         **kwargs: The configuration of the model as keyword arguments.
 
     Returns:
@@ -213,30 +211,14 @@ class SmartLabSplit:
     def __len__(self):
         return len(self.path_list)
 
-    # def get_data(self, idx):
-    #     pc_path = self.path_list[idx]
-    #     data = np.load(pc_path)
-
-    #     points = np.array(data[:, :3], dtype=np.float32)
-
-    #     feat = np.array(data[:, 3:], dtype=np.float32) if data.shape[1] > 4 else None
-
-    #     if self.split != "test":
-    #         labels = np.array(data[:, 3], dtype=np.int32)
-    #     else:
-    #         labels = np.zeros((points.shape[0],), dtype=np.int32)
-
-    #     data = {"point": points, "feat": feat, "label": labels}
-
-    #     return data
-
     def get_data(self, idx):
         pc_path = self.path_list[idx]
         data = np.load(pc_path)
 
         points = np.array(data[:, :3], dtype=np.float32)
 
-        feat = np.array(data[:, 3:], dtype=np.float32) if data.shape[1] > 4 else None
+        feat = np.array(
+            data[:, 3:], dtype=np.float32) if data.shape[1] > 4 else None
 
         labels = np.array(data[:, 3], dtype=np.int32)
 
