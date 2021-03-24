@@ -1,0 +1,412 @@
+Writing summary in train_log/00006_RandLANet_S3DIS_tf.
+Initializing from scratch.
+=== EPOCH 0/100 ===
+loss train: 14.489  eval: 45.471
+acc train: 0.420  eval: 0.345
+iou train: 0.213  eval: 0.151
+Saved checkpoint at: ./logs/RandLANet_S3DIS_tf/checkpoint/ckpt-1
+=== EPOCH 1/100 ===
+loss train: 11.293  eval: 60.753
+acc train: 0.541  eval: 0.297
+iou train: 0.301  eval: 0.120
+=== EPOCH 2/100 ===
+loss train: 10.323  eval: 18.128
+acc train: 0.587  eval: 0.577
+iou train: 0.346  eval: 0.296
+=== EPOCH 3/100 ===
+loss train: 9.648  eval: 19.686
+acc train: 0.612  eval: 0.549
+iou train: 0.366  eval: 0.288
+=== EPOCH 4/100 ===
+loss train: 9.182  eval: 11.904
+acc train: 0.632  eval: 0.637
+iou train: 0.382  eval: 0.382
+=== EPOCH 5/100 ===
+loss train: 8.646  eval: 10.263
+acc train: 0.653  eval: 0.660
+iou train: 0.398  eval: 0.398
+=== EPOCH 6/100 ===
+loss train: 8.443  eval: 10.088
+acc train: 0.663  eval: 0.669
+iou train: 0.406  eval: 0.427
+=== EPOCH 7/100 ===
+loss train: 7.856  eval: 10.616
+acc train: 0.678  eval: 0.677
+iou train: 0.418  eval: 0.409
+=== EPOCH 8/100 ===
+loss train: 7.502  eval: 9.838
+acc train: 0.697  eval: 0.675
+iou train: 0.431  eval: 0.402
+=== EPOCH 9/100 ===
+loss train: 7.275  eval: 9.009
+acc train: 0.703  eval: 0.712
+iou train: 0.436  eval: 0.435
+=== EPOCH 10/100 ===
+loss train: 6.997  eval: 9.667
+acc train: 0.715  eval: 0.697
+iou train: 0.436  eval: 0.436
+=== EPOCH 11/100 ===
+loss train: 6.868  eval: 9.298
+acc train: 0.719  eval: 0.689
+iou train: 0.444  eval: 0.433
+=== EPOCH 12/100 ===
+loss train: 6.700  eval: 10.361
+acc train: 0.726  eval: 0.677
+iou train: 0.438  eval: 0.400
+=== EPOCH 13/100 ===
+loss train: 6.395  eval: 7.838
+acc train: 0.739  eval: 0.710
+iou train: 0.446  eval: 0.421
+=== EPOCH 14/100 ===
+loss train: 6.195  eval: 7.818
+acc train: 0.746  eval: 0.726
+iou train: 0.453  eval: 0.418
+=== EPOCH 15/100 ===
+loss train: 5.981  eval: 8.299
+acc train: 0.755  eval: 0.703
+iou train: 0.458  eval: 0.398
+=== EPOCH 16/100 ===
+loss train: 5.951  eval: 7.028
+acc train: 0.758  eval: 0.744
+iou train: 0.464  eval: 0.451
+=== EPOCH 17/100 ===
+loss train: 6.063  eval: 8.398
+acc train: 0.756  eval: 0.715
+iou train: 0.456  eval: 0.408
+=== EPOCH 18/100 ===
+loss train: 5.879  eval: 7.582
+acc train: 0.766  eval: 0.734
+iou train: 0.467  eval: 0.443
+=== EPOCH 19/100 ===
+loss train: 5.487  eval: 6.825
+acc train: 0.783  eval: 0.762
+iou train: 0.480  eval: 0.462
+=== EPOCH 20/100 ===
+loss train: 5.442  eval: 7.956
+acc train: 0.785  eval: 0.749
+iou train: 0.482  eval: 0.448
+Saved checkpoint at: ./logs/RandLANet_S3DIS_tf/checkpoint/ckpt-2
+=== EPOCH 21/100 ===
+loss train: 5.247  eval: 7.064
+acc train: 0.788  eval: 0.752
+iou train: 0.484  eval: 0.437
+=== EPOCH 22/100 ===
+loss train: 5.292  eval: 12.441
+acc train: 0.791  eval: 0.617
+iou train: 0.487  eval: 0.357
+=== EPOCH 23/100 ===
+loss train: 5.238  eval: 6.993
+acc train: 0.793  eval: 0.773
+iou train: 0.488  eval: 0.470
+=== EPOCH 24/100 ===
+loss train: 4.967  eval: 7.072
+acc train: 0.807  eval: 0.768
+iou train: 0.497  eval: 0.482
+=== EPOCH 25/100 ===
+loss train: 4.861  eval: 7.164
+acc train: 0.810  eval: 0.779
+iou train: 0.503  eval: 0.494
+=== EPOCH 26/100 ===
+loss train: 4.792  eval: 7.062
+acc train: 0.817  eval: 0.752
+iou train: 0.505  eval: 0.450
+=== EPOCH 27/100 ===
+loss train: 4.877  eval: 7.407
+acc train: 0.809  eval: 0.768
+iou train: 0.502  eval: 0.478
+=== EPOCH 28/100 ===
+loss train: 4.616  eval: 8.158
+acc train: 0.820  eval: 0.758
+iou train: 0.513  eval: 0.465
+=== EPOCH 29/100 ===
+loss train: 4.445  eval: 7.298
+acc train: 0.831  eval: 0.773
+iou train: 0.518  eval: 0.481
+=== EPOCH 30/100 ===
+loss train: 4.313  eval: 8.913
+acc train: 0.832  eval: 0.753
+iou train: 0.520  eval: 0.465
+=== EPOCH 31/100 ===
+loss train: 4.203  eval: 8.527
+acc train: 0.839  eval: 0.767
+iou train: 0.527  eval: 0.489
+=== EPOCH 32/100 ===
+loss train: 4.049  eval: 8.454
+acc train: 0.842  eval: 0.780
+iou train: 0.530  eval: 0.491
+=== EPOCH 33/100 ===
+loss train: 4.038  eval: 9.788
+acc train: 0.846  eval: 0.764
+iou train: 0.533  eval: 0.477
+=== EPOCH 34/100 ===
+loss train: 4.067  eval: 9.179
+acc train: 0.842  eval: 0.774
+iou train: 0.532  eval: 0.480
+=== EPOCH 35/100 ===
+loss train: 4.111  eval: 9.038
+acc train: 0.846  eval: 0.768
+iou train: 0.532  eval: 0.470
+=== EPOCH 36/100 ===
+loss train: 4.105  eval: 9.112
+acc train: 0.842  eval: 0.776
+iou train: 0.529  eval: 0.501
+=== EPOCH 37/100 ===
+loss train: 4.016  eval: 9.424
+acc train: 0.846  eval: 0.763
+iou train: 0.534  eval: 0.460
+=== EPOCH 38/100 ===
+loss train: 3.804  eval: 9.538
+acc train: 0.855  eval: 0.779
+iou train: 0.544  eval: 0.519
+=== EPOCH 39/100 ===
+loss train: 3.744  eval: 9.190
+acc train: 0.859  eval: 0.783
+iou train: 0.545  eval: 0.511
+=== EPOCH 40/100 ===
+loss train: 3.867  eval: 9.622
+acc train: 0.852  eval: 0.762
+iou train: 0.538  eval: 0.460
+Saved checkpoint at: ./logs/RandLANet_S3DIS_tf/checkpoint/ckpt-3
+=== EPOCH 41/100 ===
+loss train: 3.769  eval: 9.958
+acc train: 0.856  eval: 0.785
+iou train: 0.542  eval: 0.522
+=== EPOCH 42/100 ===
+loss train: 3.701  eval: 12.289
+acc train: 0.861  eval: 0.745
+iou train: 0.544  eval: 0.477
+=== EPOCH 43/100 ===
+loss train: 3.856  eval: 8.712
+acc train: 0.848  eval: 0.784
+iou train: 0.536  eval: 0.520
+=== EPOCH 44/100 ===
+loss train: 3.522  eval: 11.200
+acc train: 0.866  eval: 0.770
+iou train: 0.553  eval: 0.493
+=== EPOCH 45/100 ===
+loss train: 3.569  eval: 13.145
+acc train: 0.863  eval: 0.746
+iou train: 0.552  eval: 0.494
+=== EPOCH 46/100 ===
+loss train: 3.488  eval: 10.498
+acc train: 0.865  eval: 0.760
+iou train: 0.552  eval: 0.494
+=== EPOCH 47/100 ===
+loss train: 3.319  eval: 9.049
+acc train: 0.874  eval: 0.777
+iou train: 0.560  eval: 0.533
+=== EPOCH 48/100 ===
+loss train: 3.274  eval: 10.730
+acc train: 0.874  eval: 0.769
+iou train: 0.563  eval: 0.516
+=== EPOCH 49/100 ===
+loss train: 3.270  eval: 11.881
+acc train: 0.874  eval: 0.761
+iou train: 0.563  eval: 0.506
+=== EPOCH 50/100 ===
+loss train: 3.276  eval: 8.929
+acc train: 0.874  eval: 0.772
+iou train: 0.562  eval: 0.499
+=== EPOCH 51/100 ===
+loss train: 3.426  eval: 14.520
+acc train: 0.872  eval: 0.637
+iou train: 0.559  eval: 0.423
+=== EPOCH 52/100 ===
+loss train: 3.466  eval: 9.492
+acc train: 0.866  eval: 0.767
+iou train: 0.557  eval: 0.464
+=== EPOCH 53/100 ===
+loss train: 3.249  eval: 8.876
+acc train: 0.876  eval: 0.773
+iou train: 0.565  eval: 0.520
+=== EPOCH 54/100 ===
+loss train: 3.201  eval: 9.976
+acc train: 0.879  eval: 0.787
+iou train: 0.564  eval: 0.532
+=== EPOCH 55/100 ===
+loss train: 3.105  eval: 11.708
+acc train: 0.881  eval: 0.759
+iou train: 0.571  eval: 0.519
+=== EPOCH 56/100 ===
+loss train: 2.991  eval: 9.512
+acc train: 0.886  eval: 0.776
+iou train: 0.575  eval: 0.527
+=== EPOCH 57/100 ===
+loss train: 3.085  eval: 10.721
+acc train: 0.881  eval: 0.773
+iou train: 0.570  eval: 0.536
+=== EPOCH 58/100 ===
+loss train: 2.866  eval: 9.748
+acc train: 0.890  eval: 0.781
+iou train: 0.582  eval: 0.536
+=== EPOCH 59/100 ===
+loss train: 3.490  eval: 9.618
+acc train: 0.870  eval: 0.799
+iou train: 0.558  eval: 0.542
+=== EPOCH 60/100 ===
+loss train: 2.820  eval: 9.434
+acc train: 0.893  eval: 0.779
+iou train: 0.582  eval: 0.559
+Saved checkpoint at: ./logs/RandLANet_S3DIS_tf/checkpoint/ckpt-4
+=== EPOCH 61/100 ===
+loss train: 2.838  eval: 9.517
+acc train: 0.893  eval: 0.788
+iou train: 0.583  eval: 0.548
+=== EPOCH 62/100 ===
+loss train: 2.940  eval: 9.021
+acc train: 0.889  eval: 0.766
+iou train: 0.580  eval: 0.501
+=== EPOCH 63/100 ===
+loss train: 3.010  eval: 8.857
+acc train: 0.889  eval: 0.803
+iou train: 0.576  eval: 0.546
+=== EPOCH 64/100 ===
+loss train: 2.810  eval: 10.108
+acc train: 0.894  eval: 0.779
+iou train: 0.583  eval: 0.547
+=== EPOCH 65/100 ===
+loss train: 2.892  eval: 9.503
+acc train: 0.888  eval: 0.787
+iou train: 0.579  eval: 0.513
+=== EPOCH 66/100 ===
+loss train: 3.008  eval: 8.620
+acc train: 0.883  eval: 0.788
+iou train: 0.573  eval: 0.538
+=== EPOCH 67/100 ===
+loss train: 2.736  eval: 7.937
+acc train: 0.897  eval: 0.800
+iou train: 0.588  eval: 0.551
+=== EPOCH 68/100 ===
+loss train: 2.832  eval: 8.572
+acc train: 0.893  eval: 0.772
+iou train: 0.583  eval: 0.535
+=== EPOCH 69/100 ===
+loss train: 2.667  eval: 8.700
+acc train: 0.898  eval: 0.789
+iou train: 0.592  eval: 0.520
+=== EPOCH 70/100 ===
+loss train: 2.542  eval: 9.055
+acc train: 0.902  eval: 0.802
+iou train: 0.596  eval: 0.563
+=== EPOCH 71/100 ===
+loss train: 2.545  eval: 10.099
+acc train: 0.905  eval: 0.790
+iou train: 0.598  eval: 0.543
+=== EPOCH 72/100 ===
+loss train: 2.647  eval: 11.016
+acc train: 0.898  eval: 0.787
+iou train: 0.591  eval: 0.541
+=== EPOCH 73/100 ===
+loss train: 2.502  eval: 10.891
+acc train: 0.905  eval: 0.779
+iou train: 0.598  eval: 0.564
+=== EPOCH 74/100 ===
+loss train: 2.590  eval: 9.115
+acc train: 0.900  eval: 0.802
+iou train: 0.595  eval: 0.533
+=== EPOCH 75/100 ===
+loss train: 2.782  eval: 10.208
+acc train: 0.891  eval: 0.760
+iou train: 0.583  eval: 0.527
+=== EPOCH 76/100 ===
+loss train: 2.542  eval: 11.062
+acc train: 0.903  eval: 0.774
+iou train: 0.594  eval: 0.528
+=== EPOCH 77/100 ===
+loss train: 2.489  eval: 11.866
+acc train: 0.906  eval: 0.758
+iou train: 0.601  eval: 0.493
+=== EPOCH 78/100 ===
+loss train: 2.405  eval: 9.290
+acc train: 0.908  eval: 0.788
+iou train: 0.603  eval: 0.558
+=== EPOCH 79/100 ===
+loss train: 3.426  eval: 8.235
+acc train: 0.872  eval: 0.785
+iou train: 0.567  eval: 0.468
+=== EPOCH 80/100 ===
+loss train: 2.839  eval: 9.747
+acc train: 0.892  eval: 0.779
+iou train: 0.584  eval: 0.551
+Saved checkpoint at: ./logs/RandLANet_S3DIS_tf/checkpoint/ckpt-5
+=== EPOCH 81/100 ===
+loss train: 2.504  eval: 9.412
+acc train: 0.904  eval: 0.792
+iou train: 0.599  eval: 0.553
+=== EPOCH 82/100 ===
+loss train: 2.396  eval: 9.088
+acc train: 0.908  eval: 0.785
+iou train: 0.605  eval: 0.559
+=== EPOCH 83/100 ===
+loss train: 2.583  eval: 7.366
+acc train: 0.905  eval: 0.801
+iou train: 0.598  eval: 0.527
+=== EPOCH 84/100 ===
+loss train: 2.423  eval: 9.690
+acc train: 0.911  eval: 0.781
+iou train: 0.607  eval: 0.538
+=== EPOCH 85/100 ===
+loss train: 2.411  eval: 9.800
+acc train: 0.909  eval: 0.793
+iou train: 0.604  eval: 0.561
+=== EPOCH 86/100 ===
+loss train: 2.369  eval: 10.877
+acc train: 0.910  eval: 0.790
+iou train: 0.606  eval: 0.544
+=== EPOCH 87/100 ===
+loss train: 2.314  eval: 9.818
+acc train: 0.910  eval: 0.784
+iou train: 0.611  eval: 0.539
+=== EPOCH 88/100 ===
+loss train: 2.222  eval: 8.458
+acc train: 0.915  eval: 0.788
+iou train: 0.615  eval: 0.563
+=== EPOCH 89/100 ===
+loss train: 2.245  eval: 11.221
+acc train: 0.913  eval: 0.786
+iou train: 0.614  eval: 0.520
+=== EPOCH 90/100 ===
+loss train: 2.380  eval: 9.956
+acc train: 0.909  eval: 0.783
+iou train: 0.607  eval: 0.552
+=== EPOCH 91/100 ===
+loss train: 2.480  eval: 8.971
+acc train: 0.905  eval: 0.783
+iou train: 0.605  eval: 0.545
+=== EPOCH 92/100 ===
+loss train: 2.218  eval: 11.436
+acc train: 0.916  eval: 0.770
+iou train: 0.616  eval: 0.536
+=== EPOCH 93/100 ===
+loss train: 2.400  eval: 10.118
+acc train: 0.909  eval: 0.792
+iou train: 0.605  eval: 0.563
+=== EPOCH 94/100 ===
+loss train: 2.323  eval: 12.189
+acc train: 0.913  eval: 0.770
+iou train: 0.614  eval: 0.562
+=== EPOCH 95/100 ===
+loss train: 2.350  eval: 11.240
+acc train: 0.909  eval: 0.763
+iou train: 0.606  eval: 0.498
+=== EPOCH 96/100 ===
+loss train: 2.216  eval: 9.501
+acc train: 0.911  eval: 0.793
+iou train: 0.613  eval: 0.561
+=== EPOCH 97/100 ===
+loss train: 2.231  eval: 11.362
+acc train: 0.913  eval: 0.776
+iou train: 0.612  eval: 0.545
+=== EPOCH 98/100 ===
+loss train: 2.292  eval: 8.386
+acc train: 0.914  eval: 0.790
+iou train: 0.612  eval: 0.550
+=== EPOCH 99/100 ===
+loss train: 2.192  eval: 10.101
+acc train: 0.916  eval: 0.773
+iou train: 0.616  eval: 0.521
+=== EPOCH 100/100 ===
+loss train: 2.346  eval: 8.843
+acc train: 0.911  eval: 0.782
+iou train: 0.611  eval: 0.541
+Saved checkpoint at: ./logs/RandLANet_S3DIS_tf/checkpoint/ckpt-6

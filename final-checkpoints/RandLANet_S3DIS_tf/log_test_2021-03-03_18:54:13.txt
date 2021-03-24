@@ -1,0 +1,32 @@
+Started testing
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+running inference
+Per class Accuracy : [0.92270611 0.93215469 0.79222682 0.85593152 0.48511009 0.6242502
+ 0.94040434 0.9598857  0.81109516 0.16515086 0.84921679 0.8358374
+ 0.69290296]
+Per class IOUs : [0.91265322 0.9183081  0.7105714  0.55378346 0.08508811 0.2354199
+ 0.67099898 0.46431169 0.49561726 0.123701   0.57775027 0.70991781
+ 0.50655503]
+Overall Accuracy : 0.815
+Overall IOU : 0.561

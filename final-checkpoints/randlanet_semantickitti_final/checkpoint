@@ -1,0 +1,3 @@
+model_checkpoint_path: "randlanet_semantickitti"
+all_model_checkpoint_paths: "randlanet_semantickitti"
+all_model_checkpoint_paths: "randlanet_semantickitti"
