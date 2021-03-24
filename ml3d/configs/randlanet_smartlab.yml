@@ -5,7 +5,7 @@ dataset:
   val_dir: val
   test_dir: test
   use_cache: False
-  class_weights: [26636,11195,12833,3635,2720,1034]
+  class_weights: [26636, 11195, 12833, 3635, 2720, 1034]
   ignored_label_inds: [0]
   num_points: 56000
   test_result_folder: test
