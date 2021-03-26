@@ -15,8 +15,7 @@ from .base_dataset import BaseDataset, BaseDatasetSplit
 from ..utils import make_dir, DATASET
 
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(levelname)s - %(asctime)s - %(module)s - %(message)s",
+    level=logging.INFO, format="%(levelname)s - %(asctime)s - %(module)s - %(message)s",
 )
 log = logging.getLogger(__name__)
 
@@ -69,8 +68,7 @@ class SmartLab(BaseDataset):
         self.label_to_names = self.get_label_to_names()
 
         self.num_classes = len(self.label_to_names)
-        self.label_values = np.sort(
-            [k for k, v in self.label_to_names.items()])
+        self.label_values = np.sort([k for k, v in self.label_to_names.items()])
 
         self.label_to_idx = {l: i for i, l in enumerate(self.label_values)}
 
@@ -92,8 +90,7 @@ class SmartLab(BaseDataset):
             A dict where keys are label numbers and values are the corresponding names.
         """
 
-        label_to_names = {0: "Unlabeled", 1: "Floor",
-                          2: "Wall", 3: "Robot", 4: "Human", 5: "AGV"}
+        label_to_names = {0: "Unlabeled", 1: "Floor", 2: "Wall", 3: "Robot", 4: "Human", 5: "AGV"}
         return label_to_names
 
     def get_split(self, split):
@@ -122,15 +119,15 @@ class SmartLab(BaseDataset):
         """
 
         if split in ["test", "testing"]:
-            random.shuffle(self.test_files)
+            # random.shuffle(self.test_files)
             return self.test_files
 
         elif split in ["val", "validation"]:
-            random.shuffle(self.val_files)
+            # random.shuffle(self.val_files)
             return self.val_files
 
         elif split in ["train", "training"]:
-            random.shuffle(self.train_files)
+            # random.shuffle(self.train_files)
             return self.train_files
 
         elif split in ["all"]:
@@ -217,8 +214,7 @@ class SmartLabSplit:
 
         points = np.array(data[:, :3], dtype=np.float32)
 
-        feat = np.array(
-            data[:, 3:], dtype=np.float32) if data.shape[1] > 4 else None
+        feat = np.array(data[:, 3:], dtype=np.float32) if data.shape[1] > 4 else None
 
         labels = np.array(data[:, 3], dtype=np.int32)
 
