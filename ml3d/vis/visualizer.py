@@ -1475,7 +1475,7 @@ class Visualizer:
     def visualize_dataset(self,
                           dataset,
                           split,
-                          label_lut,
+                          label_lut=None,
                           indices=None,
                           width=1024,
                           height=768):
