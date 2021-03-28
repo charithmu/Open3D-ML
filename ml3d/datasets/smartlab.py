@@ -28,7 +28,6 @@ class SmartLab(BaseDataset):
     A template for customized datasetthat you can use with a dataloader to feed data when training a model.
     This inherits all functions from the base dataset and can be modified by users.
     Initialize the function by passing the dataset and other details.
-
     Args:
         dataset_path: The path to the dataset to use.
         name: The name of the dataset.
@@ -45,8 +44,8 @@ class SmartLab(BaseDataset):
         name="SmartLab",
         cache_dir="./logs/cache",
         use_cache=False,
-        num_points=65536,
-        ignored_label_inds=[0],
+        num_points=56000,
+        ignored_label_inds=[],
         test_result_folder="./test",
         **kwargs
     ):
@@ -85,7 +84,6 @@ class SmartLab(BaseDataset):
     @staticmethod
     def get_label_to_names():
         """Returns a label to names dictonary object.
-
         Returns:
             A dict where keys are label numbers and values are the corresponding names.
         """
@@ -95,10 +93,8 @@ class SmartLab(BaseDataset):
 
     def get_split(self, split):
         """Returns a dataset split.
-
         Args:
             split: A string identifying the dataset split that is usually one of 'training', 'test', 'validation', or 'all'.
-
         Returns:
             A dataset split object providing the requested subset of the data.
         """
@@ -107,29 +103,20 @@ class SmartLab(BaseDataset):
 
     def get_split_list(self, split):
         """Returns a dataset split.
-
         Args:
             split: A string identifying the dataset split that is usually one of 'training', 'test', 'validation', or 'all'.
-
         Returns:
             A dataset split object providing the requested subset of the data.
-
         Raises:
-                ValueError: Indicates that the split name passed is incorrect. The split name should be one of 'training', 'test', 'validation', or 'all'.
+            ValueError: Indicates that the split name passed is incorrect. The split name should be one of 'training', 'test', 'validation', or 'all'.
         """
 
         if split in ["test", "testing"]:
-            # random.shuffle(self.test_files)
             return self.test_files
-
         elif split in ["val", "validation"]:
-            # random.shuffle(self.val_files)
             return self.val_files
-
         elif split in ["train", "training"]:
-            # random.shuffle(self.train_files)
             return self.train_files
-
         elif split in ["all"]:
             files = self.val_files + self.train_files + self.test_files
             return files
@@ -138,11 +125,9 @@ class SmartLab(BaseDataset):
 
     def is_tested(self, attr):
         """Checks if a datum in the dataset has been tested.
-
         Args:
             dataset: The current dataset to which the datum belongs to.
             attr: The attribute that needs to be checked.
-
         Returns:
             If the dataum attribute is tested, then resturn the path where the attribute is stored; else, returns false.
         """
@@ -160,13 +145,10 @@ class SmartLab(BaseDataset):
 
     def save_test_result(self, results, attr):
         """Saves the output of a model.
-
         Args:
             results: The output of a model for the datum associated with the attribute passed.
-
             attr: The attributes that correspond to the outputs passed in results.
         """
-
         cfg = self.cfg
         name = attr["name"]
         path = cfg.test_result_folder
@@ -175,23 +157,16 @@ class SmartLab(BaseDataset):
         pred = results["predict_labels"]
         pred = np.array(pred)
 
-        # pred = np.array(self.label_to_names[pred])
-        # for ign in cfg.ignored_label_inds:
-        #     pred[pred >= ign] += 1
-
         store_path = join(path, name + ".npy")
         np.save(store_path, pred)
 
 
 class SmartLabSplit:
-    """This class is used to create a custom dataset split.
-    Initialize the class.
-
+    """This class is used to create a custom dataset split. Initialize the class.
     Args:
         dataset: The dataset to split.
         split: A string identifying the dataset split that is usually one of 'training', 'test', 'validation', or 'all'.
         **kwargs: The configuration of the model as keyword arguments.
-
     Returns:
         A dataset split object providing the requested subset of the data.
     """
@@ -213,13 +188,10 @@ class SmartLabSplit:
         data = np.load(pc_path)
 
         points = np.array(data[:, :3], dtype=np.float32)
-
         feat = np.array(data[:, 3:], dtype=np.float32) if data.shape[1] > 4 else None
-
         labels = np.array(data[:, 3], dtype=np.int32)
 
         data = {"point": points, "feat": feat, "label": labels}
-
         return data
 
     def get_attr(self, idx):
@@ -227,7 +199,6 @@ class SmartLabSplit:
         name = pc_path.name.replace(".npy", "")
 
         attr = {"name": name, "path": str(pc_path), "split": self.split}
-
         return attr
 
 
