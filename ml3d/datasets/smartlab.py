@@ -161,7 +161,7 @@ class SmartLab(BaseDataset):
         np.save(store_path, pred)
 
 
-class SmartLabSplit:
+class SmartLabSplit(BaseDatasetSplit):
     """This class is used to create a custom dataset split. Initialize the class.
     Args:
         dataset: The dataset to split.
@@ -172,6 +172,9 @@ class SmartLabSplit:
     """
 
     def __init__(self, dataset, split="training"):
+
+        super().__init__(dataset, split=split)  # sampler fix
+
         self.cfg = dataset.cfg
         path_list = dataset.get_split_list(split)
         log.info("Found {} pointclouds for {}".format(len(path_list), split))
