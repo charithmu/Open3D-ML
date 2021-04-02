@@ -496,7 +496,8 @@ class RandLANet(BaseModel):
 
         return input_list
 
-    def inference_begin(self, data):
+    def inference_begin(self, data, **kwargs):
+
         self.test_smooth = 0.95
         attr = {'split': 'test'}
         self.inference_data = self.preprocess(data, attr)
@@ -504,7 +505,7 @@ class RandLANet(BaseModel):
         self.possibility = np.random.rand(num_points) * 1e-3
         self.test_probs = np.zeros(shape=[num_points, self.cfg.num_classes],
                                    dtype=np.float16)
-        self.pbar = tqdm(total=self.possibility.shape[0])
+        self.pbar = tqdm(total=self.possibility.shape[0], disable=kwargs.get("tqdm_disable", False))
         self.pbar_update = 0
 
     def inference_preprocess(self):

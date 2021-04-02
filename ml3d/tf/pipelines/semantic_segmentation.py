@@ -126,13 +126,14 @@ class SemanticSegmentation(BasePipeline):
     
     """
 
-    def run_inference(self, data):
+    def run_inference(self, data, **kwargs):
+
         cfg = self.cfg
         model = self.model
         # model.eval()
         log.info("running inference")
 
-        model.inference_begin(data)
+        model.inference_begin(data, tqdm_disable=kwargs.get("tqdm_disable", False))
 
         while True:
             inputs = model.inference_preprocess()
@@ -147,7 +148,8 @@ class SemanticSegmentation(BasePipeline):
     
     """
 
-    def run_test(self):
+    def run_test(self, **kwargs):
+
         model = self.model
         dataset = self.dataset
         cfg = self.cfg
@@ -168,27 +170,17 @@ class SemanticSegmentation(BasePipeline):
         ious = []
 
         test_split = dataset.get_split("test")
-        for idx in tqdm(range(len(test_split)), desc="test"):
+        for idx in tqdm(range(len(test_split)), desc="test", disable=kwargs.get("tqdm_disable", False)):
 
             attr = test_split.get_attr(idx)
             data = test_split.get_data(idx)
 
-            # print(attr)
-            results = self.run_inference(data)
+            results = self.run_inference(data, tqdm_disable=kwargs.get("tqdm_disable", False))
 
-            # print("pred lable summary:")
-            # unique, counts = np.unique(results["predict_labels"], return_counts=True)
-            # print(np.asarray((unique, counts)).T)
-
-            scores, labels = Loss.filter_valid_label(
-                results["predict_scores"], data['label'])
-            # print(scores)
-            # print(labels)
+            scores, labels = Loss.filter_valid_label(results["predict_scores"], data["label"])
 
             acc = Metric.acc(scores.numpy(), labels.numpy())
             iou = Metric.iou(scores.numpy(), labels.numpy())
-            # print(acc)
-            # print(iou)
 
             accs.append(acc)
             ious.append(iou)
@@ -243,11 +235,9 @@ class SemanticSegmentation(BasePipeline):
         valid_loader, len_val = valid_split.get_loader(cfg.val_batch_size)
 
         dataset_name = dataset.name if dataset is not None else ""
-        tensorboard_dir = join(
-            self.cfg.train_sum_dir, model.__class__.__name__ + "_" + dataset_name + "_tf")
+        tensorboard_dir = join(self.cfg.train_sum_dir, model.__class__.__name__ + "_" + dataset_name + "_tf")
         runid = get_runid(tensorboard_dir)
-        self.tensorboard_dir = join(
-            self.cfg.train_sum_dir, runid + "_" + Path(tensorboard_dir).name)
+        self.tensorboard_dir = join(self.cfg.train_sum_dir, runid + "_" + Path(tensorboard_dir).name)
 
         writer = tf.summary.create_file_writer(self.tensorboard_dir)
         self.save_config(writer)
@@ -269,8 +259,7 @@ class SemanticSegmentation(BasePipeline):
                 with tf.GradientTape(persistent=True) as tape:
                     results = model(inputs, training=True)
 
-                    loss, gt_labels, predict_scores = model.get_loss(
-                        Loss, results, inputs)
+                    loss, gt_labels, predict_scores = model.get_loss(Loss, results, inputs)
 
                 if len(predict_scores.shape) < 2:
                     continue
@@ -297,8 +286,7 @@ class SemanticSegmentation(BasePipeline):
                 self.optimizer.apply_gradients(zip(grads, params))
 
                 if len(scaled_grads) > 0:
-                    self.optimizer.apply_gradients(
-                        zip(scaled_grads, scaled_params))
+                    self.optimizer.apply_gradients(zip(scaled_grads, scaled_params))
 
                 acc = Metric.acc(predict_scores, gt_labels)
                 iou = Metric.iou(predict_scores, gt_labels)
@@ -317,8 +305,7 @@ class SemanticSegmentation(BasePipeline):
             for idx, inputs in enumerate(tqdm(valid_loader, total=len_val, desc="validation")):
                 with tf.GradientTape() as tape:
                     results = model(inputs, training=False)
-                    loss, gt_labels, predict_scores = model.get_loss(
-                        Loss, results, inputs)
+                    loss, gt_labels, predict_scores = model.get_loss(Loss, results, inputs)
 
                 if len(predict_scores.shape) < 2:
                     continue
@@ -351,21 +338,17 @@ class SemanticSegmentation(BasePipeline):
             valid_accs = np.nanmean(np.array(self.valid_accs), axis=0)
             valid_ious = np.nanmean(np.array(self.valid_ious), axis=0)
 
-        loss_dict = {"Training loss": np.mean(
-            self.losses), "Validation loss": np.mean(self.valid_losses)}
+        loss_dict = {"Training loss": np.mean(self.losses), "Validation loss": np.mean(self.valid_losses)}
         acc_dicts = [
             {"Training accuracy": acc, "Validation accuracy": val_acc} for acc, val_acc in zip(accs, valid_accs)
         ]
-        iou_dicts = [{"Training IoU": iou, "Validation IoU": val_iou}
-                     for iou, val_iou in zip(ious, valid_ious)]
+        iou_dicts = [{"Training IoU": iou, "Validation IoU": val_iou} for iou, val_iou in zip(ious, valid_ious)]
 
-        log.info(
-            f"loss train: {loss_dict['Training loss']:.3f} " f" eval: {loss_dict['Validation loss']:.3f}")
+        log.info(f"loss train: {loss_dict['Training loss']:.3f} " f" eval: {loss_dict['Validation loss']:.3f}")
         log.info(
             f"acc train: {acc_dicts[-1]['Training accuracy']:.3f} " f" eval: {acc_dicts[-1]['Validation accuracy']:.3f}"
         )
-        log.info(
-            f"iou train: {iou_dicts[-1]['Training IoU']:.3f} " f" eval: {iou_dicts[-1]['Validation IoU']:.3f}")
+        log.info(f"iou train: {iou_dicts[-1]['Training IoU']:.3f} " f" eval: {iou_dicts[-1]['Validation IoU']:.3f}")
 
         # send results to tensorboard
         with writer.as_default():
@@ -389,14 +372,11 @@ class SemanticSegmentation(BasePipeline):
         make_dir(train_ckpt_dir)
 
         if hasattr(self, "optimizer"):
-            self.ckpt = tf.train.Checkpoint(step=tf.Variable(
-                1), optimizer=self.optimizer, net=self.model)
+            self.ckpt = tf.train.Checkpoint(step=tf.Variable(1), optimizer=self.optimizer, net=self.model)
         else:
-            self.ckpt = tf.train.Checkpoint(
-                step=tf.Variable(1), net=self.model)
+            self.ckpt = tf.train.Checkpoint(step=tf.Variable(1), net=self.model)
 
-        self.manager = tf.train.CheckpointManager(
-            self.ckpt, train_ckpt_dir, max_to_keep=100)
+        self.manager = tf.train.CheckpointManager(self.ckpt, train_ckpt_dir, max_to_keep=100)
 
         if ckpt_path is not None:
             self.ckpt.restore(ckpt_path).expect_partial()
@@ -405,8 +385,7 @@ class SemanticSegmentation(BasePipeline):
             self.ckpt.restore(self.manager.latest_checkpoint)
 
             if self.manager.latest_checkpoint and is_resume:
-                log.info("Restored from {}".format(
-                    self.manager.latest_checkpoint))
+                log.info("Restored from {}".format(self.manager.latest_checkpoint))
             else:
                 log.info("Initializing from scratch.")
 
@@ -429,15 +408,11 @@ class SemanticSegmentation(BasePipeline):
         with writer.as_default():
             with tf.name_scope("Description"):
                 tf.summary.text("Open3D-ML", self.cfg_tb["readme"], step=0)
-                tf.summary.text(
-                    "Command line", self.cfg_tb["cmd_line"], step=0)
+                tf.summary.text("Command line", self.cfg_tb["cmd_line"], step=0)
             with tf.name_scope("Configuration"):
-                tf.summary.text("Dataset", code2md(
-                    self.cfg_tb["dataset"], language="json"), step=0)
-                tf.summary.text("Model", code2md(
-                    self.cfg_tb["model"], language="json"), step=0)
-                tf.summary.text("Pipeline", code2md(
-                    self.cfg_tb["pipeline"], language="json"), step=0)
+                tf.summary.text("Dataset", code2md(self.cfg_tb["dataset"], language="json"), step=0)
+                tf.summary.text("Model", code2md(self.cfg_tb["model"], language="json"), step=0)
+                tf.summary.text("Pipeline", code2md(self.cfg_tb["pipeline"], language="json"), step=0)
 
 
 PIPELINE._register_module(SemanticSegmentation, "tf")
