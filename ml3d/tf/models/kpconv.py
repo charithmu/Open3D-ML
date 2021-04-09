@@ -256,7 +256,8 @@ class KPFCNN(BaseModel):
         inputs['points'] = flat_inputs[:cfg.num_layers]
         inputs['neighbors'] = flat_inputs[cfg.num_layers:2 * cfg.num_layers]
         inputs['pools'] = flat_inputs[2 * cfg.num_layers:3 * cfg.num_layers]
-        inputs['upsamples'] = flat_inputs[3 * cfg.num_layers:4 * cfg.num_layers]
+        inputs['upsamples'] = flat_inputs[3 *
+                                          cfg.num_layers:4 * cfg.num_layers]
 
         ind = 4 * cfg.num_layers
         inputs['features'] = flat_inputs[ind]
@@ -357,9 +358,10 @@ class KPFCNN(BaseModel):
             num_in = stacks_len[batch_i]
             num_before = tf.cond(tf.less(batch_i, 1), lambda: tf.zeros(
                 (), dtype=tf.int32),
-                                 lambda: tf.reduce_sum(stacks_len[:batch_i]))
+                lambda: tf.reduce_sum(stacks_len[:batch_i]))
             num_after = tf.cond(tf.less(batch_i, num_batches - 1),
-                                lambda: tf.reduce_sum(stacks_len[batch_i + 1:]),
+                                lambda: tf.reduce_sum(
+                                    stacks_len[batch_i + 1:]),
                                 lambda: tf.zeros((), dtype=tf.int32))
 
             # Update current element indices
@@ -403,7 +405,7 @@ class KPFCNN(BaseModel):
             # Create this element indices
             element_inds = tf.expand_dims(tf.range(
                 point_i, point_i + stacks_len[batch_i]),
-                                          axis=0)
+                axis=0)
 
             # Pad to right size
             padded_inds = tf.pad(
@@ -734,14 +736,15 @@ class KPFCNN(BaseModel):
 
         return input_list
 
-    def inference_begin(self, data):
+    def inference_begin(self, data, **kwargs):
         attr = {'split': 'test'}
         self.inference_data = self.preprocess(data, attr)
         num_points = self.inference_data['search_tree'].data.shape[0]
         self.possibility = np.random.rand(num_points) * 1e-3
         self.test_probs = np.zeros(shape=[num_points, self.cfg.num_classes],
                                    dtype=np.float16)
-        self.pbar = tqdm(total=self.possibility.shape[0])
+        self.pbar = tqdm(
+            total=self.possibility.shape[0], disable=kwargs.get("tqdm_disable", False))
         self.pbar_update = 0
 
     def inference_preprocess(self):
@@ -813,7 +816,7 @@ class KPFCNN(BaseModel):
 
             dists = np.sum(np.square(
                 (points[input_inds] - pick_point).astype(np.float32)),
-                           axis=1)
+                axis=1)
             tuckeys = np.square(1 - dists / np.square(cfg.in_radius))
             tuckeys[dists > np.square(cfg.in_radius)] = 0
             self.possibility[input_inds] += tuckeys
@@ -853,8 +856,10 @@ class KPFCNN(BaseModel):
         cloud_inds = np.array(ci_list, dtype=np.int32)
 
         input_list = self.transform(
-            tf.convert_to_tensor(np.array(stacked_points[0], dtype=np.float32)),
-            tf.convert_to_tensor(np.array(stacked_colors[0], dtype=np.float32)),
+            tf.convert_to_tensor(
+                np.array(stacked_points[0], dtype=np.float32)),
+            tf.convert_to_tensor(
+                np.array(stacked_colors[0], dtype=np.float32)),
             tf.convert_to_tensor(np.array(point_labels[0], dtype=np.int32)),
             tf.convert_to_tensor(np.array(stacks_lengths[0], dtype=np.int32)),
             tf.convert_to_tensor(np.array(point_inds[0], dtype=np.int32)),
